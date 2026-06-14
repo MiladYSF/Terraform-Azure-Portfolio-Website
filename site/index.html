@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milad Yousofi — Cloud & Security</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d1321'/%3E%3Ctext x='32' y='43' font-family='monospace' font-size='30' font-weight='700' fill='%23c8a96e' text-anchor='middle'%3EY%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Milad Yousofi — Cloud and Cybersecurity professional. Azure, AWS, CompTIA Security+.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0e1a;
+  --bg-soft:#0d1321;
+  --panel:#111a2e;
+  --line:#1e2a45;
+  --gold:#c8a96e;
+  --gold-bright:#e3c486;
+  --text:#e8ecf4;
+  --muted:#8a96ab;
+  --green:#4ade80;
+  --display:'Space Grotesk',sans-serif;
+  --body:'Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --maxw:1080px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--body);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* ambient grid backdrop */
+.backdrop{
+  position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(900px 500px at 78% -8%, rgba(200,169,110,.10), transparent 60%),
+    radial-gradient(700px 600px at 10% 100%, rgba(74,222,128,.05), transparent 55%);
+}
+.grid-lines{
+  position:fixed;inset:0;z-index:-1;opacity:.4;
+  background-image:
+    linear-gradient(var(--line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 75%);
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 75%);
+}
+
+/* nav */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  backdrop-filter:blur(12px);
+  background:rgba(10,14,26,.6);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s, background .3s;
+}
+header.scrolled{border-bottom-color:var(--line);background:rgba(10,14,26,.85)}
+nav{
+  max-width:var(--maxw);margin:0 auto;
+  padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.brand{font-family:var(--mono);font-weight:700;letter-spacing:.5px;font-size:15px}
+.brand b{color:var(--gold)}
+.nav-links{display:flex;align-items:center;gap:26px}
+.nav-links a{
+  font-family:var(--mono);font-size:13px;color:var(--muted);
+  transition:color .2s;position:relative;
+}
+.nav-links a:hover{color:var(--text)}
+.nav-links a.cv{color:var(--gold)}
+.lang{display:flex;font-family:var(--mono);font-size:12px;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.lang button{
+  background:none;border:none;color:var(--muted);cursor:pointer;
+  padding:5px 9px;font-family:var(--mono);font-size:12px;transition:.2s;
+}
+.lang button.active{background:var(--gold);color:#0a0e1a;font-weight:700}
+.nav-toggle{display:none}
+
+/* layout */
+section{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.eyebrow{
+  font-family:var(--mono);font-size:12px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--gold);margin-bottom:14px;
+  display:flex;align-items:center;gap:10px;
+}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--gold)}
+
+/* hero */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding-top:90px;padding-bottom:60px;
+}
+.hero-grid{display:grid;grid-template-columns:1.4fr .9fr;gap:48px;align-items:center}
+.hero h1{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(2.6rem,6vw,4.4rem);line-height:1.02;
+  letter-spacing:-1.5px;margin:8px 0 18px;
+}
+.hero h1 .accent{color:var(--gold)}
+.tagline{
+  font-family:var(--mono);font-size:clamp(13px,1.4vw,15px);
+  color:var(--muted);letter-spacing:1px;margin-bottom:26px;
+}
+.tagline span{color:var(--text)}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:4px}
+.btn{
+  font-family:var(--mono);font-size:13px;font-weight:500;
+  padding:12px 22px;border-radius:8px;transition:.25s;cursor:pointer;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-primary{background:var(--gold);color:#0a0e1a;font-weight:700}
+.btn-primary:hover{background:var(--gold-bright);transform:translateY(-2px)}
+.btn-ghost{border:1px solid var(--line);color:var(--text)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+/* terminal card — the signature element */
+.terminal{
+  background:linear-gradient(160deg,var(--panel),var(--bg-soft));
+  border:1px solid var(--line);border-radius:14px;overflow:hidden;
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.7);
+}
+.term-bar{
+  display:flex;align-items:center;gap:7px;padding:12px 16px;
+  border-bottom:1px solid var(--line);background:rgba(0,0,0,.2);
+}
+.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.term-title{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:8px}
+.term-body{padding:18px 18px 22px;font-family:var(--mono);font-size:12.5px;line-height:1.9}
+.term-body .l{display:block;opacity:0;transform:translateY(4px)}
+.term-body .l.show{opacity:1;transform:none;transition:.4s}
+.c-prompt{color:var(--green)}
+.c-key{color:var(--gold)}
+.c-str{color:#9ecbff}
+.c-com{color:var(--muted)}
+.cursor{display:inline-block;width:8px;height:15px;background:var(--gold);
+  vertical-align:-2px;animation:blink 1s steps(1) infinite;margin-left:2px}
+@keyframes blink{50%{opacity:0}}
+
+/* generic section spacing */
+.block{padding:96px 24px}
+.section-head{margin-bottom:48px}
+.section-head h2{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(1.7rem,3.5vw,2.4rem);letter-spacing:-.5px;
+}
+.section-head p{color:var(--muted);max-width:560px;margin-top:12px}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.about-text p{color:var(--muted);margin-bottom:18px}
+.about-text strong{color:var(--text);font-weight:600}
+.stack{display:flex;flex-wrap:wrap;gap:9px;margin-top:8px}
+.chip{
+  font-family:var(--mono);font-size:12px;color:var(--gold);
+  border:1px solid var(--line);border-radius:20px;padding:6px 14px;
+  background:rgba(200,169,110,.05);
+}
+.about-side{
+  border:1px solid var(--line);border-radius:14px;padding:26px;
+  background:var(--bg-soft);position:relative;
+}
+.about-side h3{font-family:var(--mono);font-size:13px;color:var(--muted);
+  letter-spacing:1px;text-transform:uppercase;margin-bottom:18px}
+.avatar{
+  width:84px;height:84px;border-radius:50%;object-fit:cover;
+  border:2px solid var(--gold);padding:3px;background:var(--bg);
+  margin-bottom:20px;display:block;
+}
+.fact{display:flex;justify-content:space-between;padding:11px 0;
+  border-bottom:1px solid var(--line);font-size:14px}
+.fact:last-child{border:none}
+.fact span:first-child{color:var(--muted);font-family:var(--mono);font-size:12px}
+.fact span:last-child{color:var(--text)}
+
+/* certs */
+.cert-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.cert{
+  border:1px solid var(--line);border-radius:14px;padding:28px 24px;
+  background:linear-gradient(180deg,var(--panel),var(--bg-soft));
+  transition:.3s;position:relative;overflow:hidden;
+}
+.cert::after{content:"";position:absolute;inset:0;border-radius:14px;
+  border:1px solid transparent;transition:.3s;pointer-events:none}
+.cert:hover{transform:translateY(-5px)}
+.cert:hover::after{border-color:rgba(200,169,110,.35)}
+.cert img{width:64px;height:64px;object-fit:contain;margin-bottom:18px}
+.cert h3{font-family:var(--display);font-size:16px;font-weight:600;margin-bottom:6px}
+.cert .issuer{font-family:var(--mono);font-size:11px;color:var(--gold);
+  letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
+.cert p{font-size:13.5px;color:var(--muted);line-height:1.6}
+
+/* projects */
+.proj{
+  border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  background:var(--bg-soft);transition:.3s;
+}
+.proj:hover{border-color:rgba(200,169,110,.3)}
+.proj-inner{padding:34px;display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center}
+.proj-tag{font-family:var(--mono);font-size:11px;color:var(--green);
+  letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;
+  display:flex;align-items:center;gap:8px}
+.proj-tag::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 10px var(--green)}
+.proj h3{font-family:var(--display);font-size:22px;font-weight:600;margin-bottom:10px}
+.proj>.proj-inner>div>p{color:var(--muted);margin-bottom:18px;max-width:520px}
+.checks{display:grid;gap:9px;margin-bottom:22px}
+.check{display:flex;gap:11px;font-size:13.5px;color:var(--text);align-items:flex-start}
+.check svg{flex-shrink:0;margin-top:3px}
+.check b{color:var(--gold);font-family:var(--mono);font-size:12.5px}
+.proj-side{display:flex;flex-direction:column;gap:12px;align-items:flex-end}
+.lang-bar{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right}
+.lang-dot{display:inline-block;width:9px;height:9px;border-radius:50%;
+  background:var(--gold);margin-right:6px;vertical-align:0}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:.7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* footer */
+footer{border-top:1px solid var(--line);margin-top:60px}
+.foot{max-width:var(--maxw);margin:0 auto;padding:40px 24px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.foot-links{display:flex;gap:22px}
+.foot-links a{font-family:var(--mono);font-size:13px;color:var(--muted);transition:.2s}
+.foot-links a:hover{color:var(--gold)}
+.foot .copy{font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+@media(max-width:1024px) and (min-width:861px){
+  .cert-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:860px){
+  .hero-grid{grid-template-columns:1fr;gap:38px}
+  .about-grid{grid-template-columns:1fr;gap:30px}
+  .cert-grid{grid-template-columns:1fr}
+  .proj-inner{grid-template-columns:1fr}
+  .proj-side{align-items:flex-start}
+  .nav-links{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  .term-body .l{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="backdrop"></div>
+<div class="grid-lines"></div>
+
+<header id="hdr">
+  <nav>
+    <div class="brand">YSF<b>/</b>milad</div>
+    <div class="nav-links">
+      <a href="#about" data-en="About" data-nl="Over mij">About</a>
+      <a href="#certs" data-en="Certifications" data-nl="Certificeringen">Certifications</a>
+      <a href="#projects" data-en="Projects" data-nl="Projecten">Projects</a>
+      <a href="Milad_Yousofi_CV_EN.pdf" id="cvLink" class="cv" target="_blank" rel="noopener" data-href-en="Milad_Yousofi_CV_EN.pdf" data-href-nl="Milad_Yousofi_CV_NL.pdf" data-en="CV ↗" data-nl="CV ↗">CV ↗</a>
+    </div>
+    <div class="lang">
+      <button id="en" class="active" onclick="setLang('en')">EN</button>
+      <button id="nl" onclick="setLang('nl')">NL</button>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow" data-en="Cloud · Cybersecurity" data-nl="Cloud · Cybersecurity">Cloud · Cybersecurity</div>
+      <h1>Milad <span class="accent">Yousofi</span></h1>
+      <p class="tagline" data-en="Building at the intersection of <span>cloud infrastructure</span> and <span>security</span>." data-nl="Werkend op het snijvlak van <span>cloudinfrastructuur</span> en <span>security</span>.">Building at the intersection of <span>cloud infrastructure</span> and <span>security</span>.</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary" data-en="View projects" data-nl="Bekijk projecten">View projects</a>
+        <a href="#about" class="btn btn-ghost" data-en="About me" data-nl="Over mij">About me</a>
+      </div>
+    </div>
+    <div class="terminal reveal">
+      <div class="term-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="term-title">milad@cloud:~</span>
+      </div>
+      <div class="term-body" id="term">
+        <span class="l"><span class="c-prompt">$</span> whoami</span>
+        <span class="l">milad_yousofi</span>
+        <span class="l"><span class="c-prompt">$</span> cat profile.json</span>
+        <span class="l">{</span>
+        <span class="l">&nbsp;&nbsp;<span class="c-key">"role"</span>: <span class="c-str">"Cloud &amp; Security"</span>,</span>
+        <span class="l">&nbsp;&nbsp;<span class="c-key">"certs"</span>: [<span class="c-str">"AZ-900"</span>, <span class="c-str">"AWS-CCP"</span>, <span class="c-str">"Sec+"</span>],</span>
+        <span class="l">&nbsp;&nbsp;<span class="c-key">"focus"</span>: <span class="c-str">"Azure · IaC · SecOps"</span>,</span>
+        <span class="l">&nbsp;&nbsp;<span class="c-key">"status"</span>: <span class="c-str">"open to opportunities"</span></span>
+        <span class="l">}</span>
+        <span class="l"><span class="c-prompt">$</span> <span class="cursor"></span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="block" id="about">
+  <div class="section-head reveal">
+    <div class="eyebrow">01 — <span data-en="About" data-nl="Over mij">About</span></div>
+    <h2 data-en="Focused on cloud and security" data-nl="Gericht op cloud en security">Focused on cloud and security</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p data-en="I'm Milad, a cloud and cybersecurity professional working toward a career as a <strong>Cloud Engineer</strong> across both <strong>Azure</strong> and <strong>AWS</strong>, with a strong focus on security. I'm building practical skills at the point where cloud infrastructure and security meet, backed by a computer science foundation through Harvard's CS50 and certifications in <strong>Azure</strong>, <strong>AWS</strong>, and <strong>CompTIA Security+</strong>. Alongside this I'm doing a bachelor in <strong>Technical Informatics</strong>."
+         data-nl="Ik ben Milad, een cloud- en cybersecurity professional die werkt naar een rol als <strong>Cloud Engineer</strong> binnen <strong>Azure</strong> en <strong>AWS</strong>, met een sterke focus op security. Ik bouw praktische vaardigheden op waar cloudinfrastructuur en security samenkomen, met een basis via Harvard's Computer Science CS50 en certificeringen in <strong>Azure</strong>, <strong>AWS</strong> en <strong>CompTIA Security+</strong>. Daarnaast volg ik een bachelor <strong>Technische Informatica</strong>.">
+        I'm Milad, a cloud and cybersecurity professional working toward a career as a <strong>Cloud Engineer</strong> across both <strong>Azure</strong> and <strong>AWS</strong>, with a strong focus on security. I'm building practical skills at the point where cloud infrastructure and security meet, backed by a computer science foundation through Harvard's CS50 and certifications in <strong>Azure</strong>, <strong>AWS</strong>, and <strong>CompTIA Security+</strong>. Alongside this I'm doing a bachelor in <strong>Technical Informatics</strong>.
+      </p>
+      <p data-en="Right now I'm deepening my Azure skills, including <strong>AZ-104</strong>, infrastructure as code with <strong>Terraform</strong>, and hands-on security operations, while exploring how <strong>AI</strong> fits into cloud and security environments. I keep small, practical projects updated here, and I'm open to finding a place where I can keep learning and grow."
+         data-nl="Op dit moment verdiep ik mijn Azure-vaardigheden, waaronder <strong>AZ-104</strong>, infrastructure as code met <strong>Terraform</strong> en praktische security operations, terwijl ik onderzoek hoe <strong>AI</strong> past binnen cloud- en security-omgevingen. Ik houd kleine, praktische projecten hier bij en sta open voor een plek waar ik kan blijven leren en groeien.">
+        Right now I'm deepening my Azure skills, including <strong>AZ-104</strong>, infrastructure as code with <strong>Terraform</strong>, and hands on security operations, while exploring how <strong>AI</strong> fits into cloud and security environments. I keep small, practical projects updated here, and I'm open to finding a place where I can keep learning and grow.
+      </p>
+      <div class="stack">
+        <span class="chip">Azure</span><span class="chip">AWS</span><span class="chip">Terraform</span>
+        <span class="chip">Python</span><span class="chip">SecOps</span><span class="chip">IAM</span>
+      </div>
+    </div>
+    <div class="about-side reveal">
+      <img class="avatar" src="images/mil2.jpg" alt="Milad Yousofi">
+      <h3 data-en="At a glance" data-nl="In het kort">At a glance</h3>
+      <div class="fact"><span>focus</span><span>Cloud &amp; Security</span></div>
+      <div class="fact"><span>base</span><span>Utrecht, Netherlands</span></div>
+      <div class="fact"><span>certs</span><span>AZ-900 · AWS · Sec+</span></div>
+      <div class="fact"><span>learning</span><span>AZ-104 · IaC · SOC</span></div>
+      <div class="fact"><span>langs</span><span>EN · NL · ES</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTS -->
+<section class="block" id="certs">
+  <div class="section-head reveal">
+    <div class="eyebrow">02 — <span data-en="Certifications" data-nl="Certificeringen">Certifications</span></div>
+    <h2 data-en="Verified foundations" data-nl="Geverifieerde basis">Verified foundations</h2>
+    <p data-en="Industry certifications across the cloud and security stack." data-nl="Erkende certificeringen over de cloud- en security-stack.">Industry certifications across the cloud and security stack.</p>
+  </div>
+  <div class="cert-grid">
+    <div class="cert reveal">
+      <img src="images/aws-ccp.png" alt="AWS Certified Cloud Practitioner">
+      <div class="issuer">Amazon Web Services</div>
+      <h3>AWS Certified Cloud Practitioner</h3>
+      <p data-en="Core AWS architecture, compute/storage/networking, IAM, security principles, and the shared responsibility model." data-nl="Kern-AWS-architectuur, compute/opslag/netwerk, IAM, beveiligingsprincipes en het shared responsibility model.">Core AWS architecture, compute/storage/networking, IAM, security principles, and the shared responsibility model.</p>
+    </div>
+    <div class="cert reveal">
+      <img src="images/az-900.png" alt="Microsoft Azure Fundamentals AZ-900">
+      <div class="issuer">Microsoft</div>
+      <h3>Azure Fundamentals (AZ-900)</h3>
+      <p data-en="Azure core services and architecture, Microsoft Entra ID, security and governance, plus subscription and pricing models." data-nl="Azure-kerndiensten en -architectuur, Microsoft Entra ID, security en governance, plus abonnement- en prijsmodellen.">Azure core services and architecture, Microsoft Entra ID, security and governance, plus subscription and pricing models.</p>
+    </div>
+    <div class="cert reveal">
+      <img src="images/comptia+.png" alt="CompTIA Security+">
+      <div class="issuer">CompTIA</div>
+      <h3>Security+</h3>
+      <p data-en="Threat analysis, identity and access management, network security, cryptography, risk management, and incident response." data-nl="Dreigingsanalyse, identity &amp; access management, netwerkbeveiliging, cryptografie, risicomanagement en incident response.">Threat analysis, identity and access management, network security, cryptography, risk management, and incident response.</p>
+    </div>
+    <div class="cert reveal">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" style="margin-bottom:18px" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="60" height="60" rx="12" fill="#0d1321" stroke="#c8a96e" stroke-width="1.5"/>
+        <text x="32" y="29" font-family="JetBrains Mono, monospace" font-size="15" font-weight="700" fill="#c8a96e" text-anchor="middle">CS</text>
+        <text x="32" y="46" font-family="JetBrains Mono, monospace" font-size="15" font-weight="700" fill="#e8ecf4" text-anchor="middle">50</text>
+      </svg>
+      <div class="issuer">Harvard · edX</div>
+      <h3>CS50x</h3>
+      <p data-en="Harvard's introduction to computer science — algorithms, data structures, memory, and programming fundamentals across C, Python, and SQL." data-nl="Harvards introductie tot informatica — algoritmen, datastructuren, geheugen en programmeerfundamenten in C, Python en SQL.">Harvard's introduction to computer science — algorithms, data structures, memory, and programming fundamentals across C, Python, and SQL.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="block" id="projects">
+  <div class="section-head reveal">
+    <div class="eyebrow">03 — <span data-en="Projects" data-nl="Projecten">Projects</span></div>
+    <h2 data-en="Things I've built" data-nl="Wat ik heb gebouwd">Things I've built</h2>
+    <p data-en="Hands-on work — small, practical, and continuously updated." data-nl="Praktisch werk — klein, bruikbaar en continu bijgewerkt.">Hands-on work — small, practical, and continuously updated.</p>
+  </div>
+  <div class="proj reveal">
+    <div class="proj-inner">
+      <div>
+        <div class="proj-tag">Python · boto3 · Security</div>
+        <h3>AWS Security Audit</h3>
+        <p data-en="A Python tool that audits AWS environments for common security misconfigurations and surfaces them fast." data-nl="Een Python-tool die AWS-omgevingen controleert op veelvoorkomende security-misconfiguraties en ze snel zichtbaar maakt.">A Python tool that audits AWS environments for common security misconfigurations and surfaces them fast.</p>
+        <div class="checks">
+          <div class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg><span data-en="Detects publicly accessible <b>S3</b> buckets" data-nl="Detecteert publiek toegankelijke <b>S3</b>-buckets">Detects publicly accessible <b>S3</b> buckets</span></div>
+          <div class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg><span data-en="Flags <b>IAM</b> users without MFA enabled" data-nl="Markeert <b>IAM</b>-gebruikers zonder MFA">Flags <b>IAM</b> users without MFA enabled</span></div>
+          <div class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg><span data-en="Finds security groups open to <b>0.0.0.0/0</b>" data-nl="Vindt security groups open voor <b>0.0.0.0/0</b>">Finds security groups open to <b>0.0.0.0/0</b></span></div>
+          <div class="check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg><span data-en="Checks whether the <b>root</b> user has MFA" data-nl="Controleert of de <b>root</b>-gebruiker MFA heeft">Checks whether the <b>root</b> user has MFA</span></div>
+        </div>
+        <a href="https://github.com/MiladYSF/aws-security-audit" class="btn btn-ghost" target="_blank" rel="noopener" data-en="View on GitHub ↗" data-nl="Bekijk op GitHub ↗">View on GitHub ↗</a>
+      </div>
+      <div class="proj-side">
+        <div class="lang-bar"><span class="lang-dot"></span>Python 100%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot">
+    <div class="copy">© 2026 Milad Yousofi</div>
+    <div class="foot-links">
+      <a href="https://github.com/MiladYSF" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/miladyousofi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.credly.com/users/milad-yousofi.6a44a106" target="_blank" rel="noopener">Credly</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// language toggle
+function setLang(lang){
+  document.documentElement.lang = lang;
+  document.getElementById('en').classList.toggle('active', lang==='en');
+  document.getElementById('nl').classList.toggle('active', lang==='nl');
+  document.querySelectorAll('[data-en]').forEach(el=>{
+    const v = el.getAttribute('data-'+lang);
+    if(v!==null) el.innerHTML = v;
+  });
+  // swap CV link to the matching language
+  const cv = document.getElementById('cvLink');
+  if(cv){ cv.setAttribute('href', cv.getAttribute('data-href-'+lang)); }
+}
+
+// header shadow on scroll
+const hdr = document.getElementById('hdr');
+addEventListener('scroll',()=>hdr.classList.toggle('scrolled', scrollY>20));
+
+// scroll reveal
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// terminal type-in
+const lines = document.querySelectorAll('#term .l');
+let i=0;
+function typeLine(){
+  if(i<lines.length){ lines[i].classList.add('show'); i++; setTimeout(typeLine, 230); }
+}
+const termObs = new IntersectionObserver((e)=>{
+  if(e[0].isIntersecting){ setTimeout(typeLine,400); termObs.disconnect(); }
+},{threshold:.3});
+termObs.observe(document.getElementById('term'));
+</script>
+</body>
+</html>
