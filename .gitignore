@@ -1,5 +1,5 @@
 .DS_Store
-
+**/.DS_Store
 # Github Terraform template https://github.com/github/gitignore/blob/main/Terraform.gitignore
 
 # Local .terraform directories

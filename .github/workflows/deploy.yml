@@ -24,4 +24,5 @@ jobs:
                   --source  ./site \
                   --destination '$web' \
                   --overwrite
+                  --exclude-path ".DS_Store"
   
