@@ -228,6 +228,24 @@ section{max-width:var(--maxw);margin:0 auto;padding:0 24px}
 .reveal.in{opacity:1;transform:none}
 
 /* footer */
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.contact-text p{color:var(--muted);margin-bottom:18px}
+.contact-text a{color:var(--gold);transition:.2s}
+.contact-text a:hover{color:var(--gold-bright)}
+.cform{display:flex;flex-direction:column;gap:16px}
+.cfield{display:flex;flex-direction:column;gap:7px}
+.cfield label{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.cfield input,.cfield textarea{background:var(--bg-soft);border:1px solid var(--line);border-radius:9px;padding:12px 14px;color:var(--text);font-family:var(--body);font-size:15px;transition:.2s;resize:vertical}
+.cfield input:focus,.cfield textarea:focus{outline:none;border-color:var(--gold);background:var(--panel)}
+.cform .btn-primary{border:none;font-size:14px;align-self:flex-start;margin-top:4px}
+.cform .btn-primary:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.form-status{font-family:var(--mono);font-size:13px;min-height:20px;transition:.2s}
+.form-status.ok{color:var(--green)}
+.form-status.err{color:#ff6b6b}
+@media(max-width:860px){.contact-grid{grid-template-columns:1fr;gap:30px}}
+
+/* footer */
 footer{border-top:1px solid var(--line);margin-top:60px}
 .foot{max-width:var(--maxw);margin:0 auto;padding:40px 24px;
   display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
@@ -265,6 +283,7 @@ footer{border-top:1px solid var(--line);margin-top:60px}
       <a href="#about" data-en="About" data-nl="Over mij">About</a>
       <a href="#certs" data-en="Certifications" data-nl="Certificeringen">Certifications</a>
       <a href="#projects" data-en="Projects" data-nl="Projecten">Projects</a>
+      <a href="#contact" data-en="Contact" data-nl="Contact">Contact</a>
       <a href="Milad_Yousofi_CV_EN.pdf" id="cvLink" class="cv" target="_blank" rel="noopener" data-href-en="Milad_Yousofi_CV_EN.pdf" data-href-nl="Milad_Yousofi_CV_NL.pdf" data-en="CV ↗" data-nl="CV ↗">CV ↗</a>
     </div>
     <div class="lang">
@@ -284,6 +303,7 @@ footer{border-top:1px solid var(--line);margin-top:60px}
       <div class="hero-cta">
         <a href="#projects" class="btn btn-primary" data-en="View projects" data-nl="Bekijk projecten">View projects</a>
         <a href="#about" class="btn btn-ghost" data-en="About me" data-nl="Over mij">About me</a>
+        <a href="#contact" class="btn btn-ghost" data-en="Contact me" data-nl="Contact">Contact me</a>
       </div>
     </div>
     <div class="terminal reveal">
@@ -426,6 +446,43 @@ footer{border-top:1px solid var(--line);margin-top:60px}
   </div>
 </section>
 
+<section class="block" id="contact">
+  <div class="section-head reveal">
+    <div class="eyebrow">04 — <span data-en="Contact" data-nl="Contact">Contact</span></div>
+    <h2 data-en="Get in touch" data-nl="Neem contact op">Get in touch</h2>
+    <p data-en="Open to opportunities and collaborations. Send a message and I'll get back to you." data-nl="Open voor kansen en samenwerkingen. Stuur een bericht en ik kom bij je terug.">Open to opportunities and collaborations. Send a message and I'll get back to you.</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-text reveal">
+      <p data-en="Whether you're a recruiter, a potential collaborator, or just want to say hello — drop me a message. You can also find me on:" data-nl="Of je nu recruiter bent, een mogelijke samenwerkingspartner, of gewoon hallo wil zeggen — stuur me een bericht. Je kunt me ook vinden op:">Whether you're a recruiter or a potential collaborator, drop me a message.  You can also find me on:</p>
+      <p>
+        <a href="https://linkedin.com/in/miladyousofi" target="_blank" rel="noopener">LinkedIn ↗</a><br>
+        <a href="https://github.com/MiladYSF" target="_blank" rel="noopener">GitHub ↗</a>
+      </p>
+    </div>
+    <form class="cform reveal" id="contactForm">
+      <input type="hidden" name="access_key" value="cd93c5a9-2457-463b-bbd8-d789e9b17e14">
+      <input type="hidden" name="subject" value="New message from miladysf.com">
+      <input type="hidden" name="from_name" value="miladysf.com contact form">
+      <input type="checkbox" name="botcheck" style="display:none">
+      <div class="cfield">
+        <label for="cf-name" data-en="Name" data-nl="Naam">Name</label>
+        <input type="text" id="cf-name" name="name" required>
+      </div>
+      <div class="cfield">
+        <label for="cf-email" data-en="Email" data-nl="E-mail">Email</label>
+        <input type="email" id="cf-email" name="email" required>
+      </div>
+      <div class="cfield">
+        <label for="cf-msg" data-en="Message" data-nl="Bericht">Message</label>
+        <textarea id="cf-msg" name="message" rows="5" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" id="cf-submit" data-en="Send message" data-nl="Verstuur bericht">Send message</button>
+      <div class="form-status" id="cf-status"></div>
+    </form>
+  </div>
+</section>
+
 <footer>
   <div class="foot">
     <div class="copy">© 2026 Milad Yousofi</div>
@@ -461,6 +518,41 @@ const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
 },{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// contact form submit (Web3Forms)
+const cForm = document.getElementById('contactForm');
+if(cForm){
+  cForm.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const btn = document.getElementById('cf-submit');
+    const status = document.getElementById('cf-status');
+    const lang = document.documentElement.lang || 'en';
+    btn.disabled = true;
+    status.className = 'form-status';
+    status.textContent = lang==='nl' ? 'Versturen…' : 'Sending…';
+    try{
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method:'POST',
+        headers:{'Content-Type':'application/json', 'Accept':'application/json'},
+        body: JSON.stringify(Object.fromEntries(new FormData(cForm)))
+      });
+      const data = await res.json();
+      if(data.success){
+        status.className = 'form-status ok';
+        status.textContent = lang==='nl' ? '✓ Bericht verstuurd. Bedankt!' : '✓ Message sent. Thanks!';
+        cForm.reset();
+      } else {
+        throw new Error(data.message || 'failed');
+      }
+    } catch(err){
+      status.className = 'form-status err';
+      status.textContent = lang==='nl' ? 'Er ging iets mis. Probeer het opnieuw.' : 'Something went wrong. Please try again.';
+    } finally {
+      btn.disabled = false;
+    }
+  });
+}
+
 
 // terminal type-in
 const lines = document.querySelectorAll('#term .l');
